@@ -1,0 +1,157 @@
+<!-- 
+PENDIENTE:
+
+Leer sobre la API y averiguar como leer el json para buscar el nombre y las temps max y min de la ciudad
+Postman agent: https://web.postman.co/build/workspace/My-Workspace~c9e383d0-e557-44d9-82a6-3d8626bcfff6
+Esperar a que API Key sea activada y probar el request
+
+
+AL ACABAR
+Pasar funciones JS a archivos correspondientes (averiguar como)
+
+
+
+    FUENTES CONSULTADAS
+
+Como alinear texto en HTML: https://www.w3schools.com/tags/tag_center.asp
+
+Como implementar imagenes de fondo sensibles: https://www.webfx.com/blog/web-design/responsive-background-image/
+
+Como utilizar elementos Bootstrap: https://getbootstrap.com/docs/4.0/components/forms/
+
+Como pasar cadena ingresada en cuadro de texto a scrip de JS: https://www.w3schools.com/jsref/prop_text_value.asp
+
+Info general sobre HTML DOM: https://www.w3schools.com/whatis/whatis_htmldom.asp
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      charset="utf-8"
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
+    <title>Encuentra el clima en tu ciudad con magia negra</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.css"
+    />
+  </head>
+
+  <body class="container">
+    <style>
+      body {
+        background-image: url("https://images.alphacoders.com/947/947551.jpg");
+
+        background-position: center center;
+
+        background-repeat: no-repeat;
+
+        background-attachment: fixed;
+
+        background-size: cover;
+
+        background-color: #464646;
+      }
+      h1 {
+        text-align: center;
+      }
+      h3 {
+        text-align: center;
+      }
+    </style>
+
+    <div class="row">
+      <h1 style="color: whitesmoke">
+        Buscador de temperaturas actuales en la República Mexicana
+      </h1>
+    </div>
+    <div class="row">
+      <h3 style="color: whitesmoke">
+        Ingrese en la caja de texto el nombre de la ciudad
+      </h3>
+    </div>
+    <!--
+    <div style="text-align: center">
+      <input type="text" id="ciudadIn" placeholder="Ciudad" />
+      <button class="btn btn-primary" onclick="search()">Buscar clima</button>
+    </div>
+-->
+    <form>
+      <div class="form-row align-items-center">
+        <input
+          type="text"
+          class="form-control"
+          id="ciudadIn"
+          aria-describedby="descripcion"
+          placeholder="ciudad"
+        />
+        <small id="descripcion" style="color: whitesmoke"
+          >Utilizamos la API de OpenWeatherMap</small
+        >
+      </div>
+    </form>
+    <br />
+
+    <div id="searchButtonDiv">
+      <button class="btn btn-primary" onclick="search()" id="searchButton">
+        Buscar clima
+      </button>
+    </div>
+    <div id="result"></div>
+  </body>
+
+  <script>
+    var citySearched = document.getElementById("ciudadIn").value;
+    var apiURL =
+      "api.openweathermap.org/data/2.5/weather?q=" +
+      citySearched +
+      "&appid=4c1f52b065baf1561a6fe124b58b84d6";
+
+    function search() {
+      var citySearched = document.getElementById("ciudadIn").value;
+      document.getElementById("searchButtonDiv").style.display = "none";
+      if (citySearched == "") {
+        alert("Hay que ingresar una ciudad");
+      } else {
+        getApiData(apiURL);
+      }
+      document.getElementById("searchButtonDiv").style.display = "inline";
+    }
+
+    //Esta fn llama a la API y pasarla a dataViewer
+    function getApiData(apiURL) {
+      var request = new XMLHttpRequest();
+      request.open("GET", apiURL, true);
+      request.send();
+
+      request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = this.response;
+          var myData = JSON.parse(data);
+
+          var info = {
+            cityName: myData.name,
+            currentTemp: myData.main.temp,
+            maxTemp: myData.main.temp_max,
+            minTemp: myData.main.temp_min,
+          };
+          alert(info.cityName);
+          showCityWeather(info);
+        }
+      };
+    }
+
+    function showCityWeather(info) {
+      document.getElementById("result").innerHTML = "";
+      var elementHeader = document.createElement("h5");
+      document.getElementById("result").appendChild(elementHeader);
+
+      var display = document.createElement("h4");
+      display.style.color = "white";
+      display.innerHTML = info.currentTemp + "<br ><hr />";
+      document.getElementById("result").appendChild(display);
+    }
+  </script>
+</html>
