@@ -20,6 +20,7 @@ Info general sobre HTML DOM: https://www.w3schools.com/whatis/whatis_htmldom.asp
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
     />
+    
     <title>Encuentra el clima en tu ciudad con magia negra</title>
     <link
       rel="stylesheet"
@@ -45,7 +46,16 @@ Info general sobre HTML DOM: https://www.w3schools.com/whatis/whatis_htmldom.asp
       h1 {
         text-align: center;
       }
+      h2 {
+        text-align: center;
+      }
       h3 {
+        text-align: center;
+      }
+      h4 {
+        text-align: center;
+      }
+      h5 {
         text-align: center;
       }
     </style>
@@ -84,63 +94,5 @@ Info general sobre HTML DOM: https://www.w3schools.com/whatis/whatis_htmldom.asp
     <div id="result"></div>
     <script src="ApiWeatherCall.js"></script>
     <script src="DataViewer.js"></script>
-    <!--<script src="ApiWeatherCall.js"></script>
-    <script src="DataViewer.js"></script>
-    <script>
-      var citySearched = document.getElementById("ciudadIn").value;
-      var apiURL =
-        "api.openweathermap.org/data/2.5/weather?q=" +
-        citySearched +
-        "&appid=4c1f52b065baf1561a6fe124b58b84d6";
-
-      function search() {
-        var citySearched = document.getElementById("ciudadIn").value;
-        document.getElementById("searchButtonDiv").style.display = "none";
-        if (citySearched == "") {
-          alert("Hay que ingresar una ciudad");
-        } else {
-          var apiURL =
-            "api.openweathermap.org/data/2.5/weather?q=" +
-            citySearched +
-            "&appid=4c1f52b065baf1561a6fe124b58b84d6";
-          getApiData(apiURL);
-        }
-        document.getElementById("searchButtonDiv").style.display = "inline";
-      }
-
-      //Esta fn llama a la API y pasarla a dataViewer
-      function getApiData(apiURL) {
-        var request = new XMLHttpRequest();
-        request.open("GET", apiURL, true);
-        request.send();
-
-        request.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            var data = this.response;
-            var myData = JSON.parse(data);
-
-            var info = {
-              cityName: myData.name,
-              currentTemp: myData.main.temp,
-              maxTemp: myData.main.temp_max,
-              minTemp: myData.main.temp_min,
-            };
-            alert(info.cityName);
-            showCityWeather(info);
-          }
-        };
-      }
-
-      function showCityWeather(info) {
-        document.getElementById("result").innerHTML = "";
-        var elementHeader = document.createElement("h5");
-        document.getElementById("result").appendChild(elementHeader);
-
-        var display = document.createElement("h4");
-        display.style.color = "white";
-        display.innerHTML = info.currentTemp + "<br ><hr />";
-        document.getElementById("result").appendChild(display);
-      }
-    </script>-->
   </body>
 </html>
